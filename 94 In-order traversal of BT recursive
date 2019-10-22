@@ -1,0 +1,23 @@
+// Time O(n)
+// Space O(h)
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<>();
+        if (root == null) {
+            return res;
+        }
+        LinkedList<TreeNode> s = new LinkedList<>();
+        TreeNode helper = root;
+        while (helper != null || !s.isEmpty()) {
+            if (helper != null) {
+                s.offerFirst(helper);
+                helper = helper.left;
+            } else {
+                helper = s.pollFirst();
+                res.add(helper.val);
+                helper = helper.right;
+            }
+        }
+        return res;
+    }
+}
