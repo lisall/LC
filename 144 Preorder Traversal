@@ -1,0 +1,21 @@
+  // Time O(n)
+  // Space O(h)
+  public List<Integer> preOrder(TreeNode root) {
+    List<Integer> res = new ArrayList<>();
+    if (root == null) {
+      return res;
+    }
+    LinkedList<TreeNode> s = new LinkedList<>();
+    s.offerFirst(root);
+    while (!s.isEmpty()) {
+      TreeNode cur = s.pollFirst();
+      res.add(cur.key);
+      if (cur.right != null) {
+        s.offerFirst(cur.right);
+      }
+      if (cur.left != null) {
+        s.offerFirst(cur.left);
+      }
+    }
+    return res;
+  }
