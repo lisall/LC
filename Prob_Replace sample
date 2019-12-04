@@ -1,0 +1,16 @@
+// Replace sample with the new element with 1/n probability
+// 
+Element sample = null;
+int counter = 0;
+// Stream with unknown size
+Element newElement = stream.getNext();
+while (newElement != null) {
+  counter++;
+  // the probability of generating 0 is 1/counter
+  if (random(counter) == 0) {
+    sample = newElement;
+  }
+  print(sample);
+  // Returns sample if someone asks for it
+  newElement = tream.getNext();
+}
