@@ -1,0 +1,36 @@
+// Given a list of integers representing the lengths of urls, 
+// find the 95 percentile of all lengths (95% of the urls have lengths <= returned length).
+// 
+// Assumptions
+// The maximum length of valid url is 4096
+// The list is not null and is not empty and does not contain null
+//
+// Examples
+// [1, 2, 3, ..., 95, 96, 97, 98, 99, 100], 95 percentile of all lengths is 95.
+
+  // Solution: 先bucket sort，再累加各bucket值，直到>= 95%。
+  // 为了更快，可以从尾开始累加，直到>= 5%。注意i--和--i的不同导致结果相差1
+  // in bucket[4096]
+  // for each url
+  //    bucket[url.length] ++
+  // bucket[i] represents the # of url which has a length of i
+  // [1, 2, 3, ..., 95, 96, 97, 98, 99, 100], 95 percentile of all lengths is 95.
+  // Time O(4096) --> O(1)
+  // Space O(1)
+
+  public int percentile95(List<Integer> lengths) {
+    // Write your solution here.
+    int n = lengths.size();
+    int[] bucket = new int[4097];
+    for (int i = 0; i < lengths.size(); i++) {
+        bucket[lengths.get(i)]++;
+    }
+    int prefix_sum = 0;
+    for (int i = 0; i < 4097; i++) {
+      prefix_sum += bucket[i];
+      if (prefix_sum >= 0.95*n) {
+        return i;
+      }
+    }
+    return 0;
+  }
